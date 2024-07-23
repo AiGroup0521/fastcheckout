@@ -5,17 +5,17 @@
 
 <head>
 <body>
-<h1>Websocket Chatroom</h1>
-
+<h1>Fast Checkout Service</h1>
+<!---
 <form id="emit" method="POST" action='#'>
 <textarea cols="50" rows="5" name="emit_data" id="emit_data" placeholder="your text"></textarea>
 <input type="submit" value="Send">
-</form>
+</form> -->
 <div id='log'></div>
 
 
-<a href="/video">video demo</a> <br>
-<a href="/item">item demo </a>
+<a href="/video">結帳</a> <br>
+<a href="/item">訂單明細查詢 </a>
 	<script>
 	
 	  if ('WebSocket' in window){
@@ -28,10 +28,11 @@
 	var port = '3000';
 	var socket = io.connect(url + ':' + port);	+
 	*/
+	/*
 	socket.on('connect', function() {
 		socket.emit('connect_event', {data: 'yes, I connect successfully'});
 	
-	})
+	}) */
 	
 	
 	socket.on('server_response', function(msg) {
