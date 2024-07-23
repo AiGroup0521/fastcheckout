@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>訂單明細查詢</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>訂單明細查詢</h1>
+    <form id="searchForm">
+        日期區間起: <input type="date" name="start_date" id="start_date">
+        迄: <input type="date" name="end_date" id="end_date">
+        <button type="button" onclick="search()">查詢</button>
+    </form>
+    <br>
+    <div id="results"></div>
+    <button id="downloadButton" type="button" onclick="download()" style="display:none;">下載 Excel</button>
+    <button id="backButton" type="button" onclick="back()" style="display:none;">回上頁</button>
+    <script>
+        var socket = io();
+
+        function search() {
+            var start_date = document.getElementById('start_date').value;
+            var end_date = document.getElementById('end_date').value;
+            socket.emit('search', { start_date: start_date, end_date: end_date });
+        }
+
+        socket.on('search_results', function(data) {
+            document.getElementById('results').innerHTML = data.results;
+            document.getElementById('downloadButton').style.display = 'block';
+        });
+
+        function download() {
+            var start_date = document.getElementById('start_date').value;
+            var end_date = document.getElementById('end_date').value;
+            socket.emit('download', { start_date: start_date, end_date: end_date });
+        }
+
+        socket.on('download', function(data) {
+            if (data.file.endsWith('.xlsx')) {
+                var link = document.createElement('a');
+                link.href = data.file;
+                link.download = data.file.split('/').pop();  // 提取文件名
+                alert(data.file);  // 調試用
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert(data.file);
+            }
+        });
+    </script>
+</body>
+</html>
