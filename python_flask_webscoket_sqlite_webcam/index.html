@@ -1,0 +1,55 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+
+<head>
+<body>
+<h1>Fast Checkout Service/h1>
+<!--
+<form id="emit" method="POST" action='#'>
+textarea cols="50" rows="5" name="emit_data" id="emit_data" placeholder="Code"></textarea>
+<input type="submit" value="Send">
+</form> -->
+<div id='log'></div>
+
+
+<a href="/video">video demo</a> <br>
+<a href="/item">item demo </a>
+	<script>
+	
+	  if ('WebSocket' in window){
+         console.log('WebSocket is supported');
+    
+      }
+	var socket = io();
+	/*
+	var url = 'http://127.0.0.1';
+	var port = '3000';
+	var socket = io.connect(url + ':' + port);	+
+	*/
+	socket.on('connect', function() {
+		socket.emit('connect_event', {data: 'yes, I connect successfully'});
+	
+	})
+	
+	
+	socket.on('server_response', function(msg) {
+	
+		$('#log').append('<br>' + $('<div/>').text('Received #' + ': ' + msg.data).html());
+			
+		
+	 });
+	
+	
+	$('form#emit').submit(function(event) {
+	 
+		socket.emit('client_event', {data: $('#emit_data').val()});
+	
+	  return false;}
+	
+	)
+
+  </script>
+</body>
+</html>
