@@ -37,7 +37,7 @@ def index():
  
 @app.route('/video')
 def goto_video():
-    return render_template('html5_camera_1.html')
+    return render_template('html5_camera_1_1.html')
     
 @app.route('/item')
 def get_item():
@@ -47,7 +47,7 @@ def get_item():
 # Open the camera
 camera = cv2.VideoCapture(1)
 #model = YOLO('model/yolov8s.pt')
-model = YOLO('model/best-m200.pt')
+model = YOLO('model/best-m400.pt')
 
 
 def detecte_objects(image_path):
@@ -176,12 +176,13 @@ def  trigger_new_item(msg):
 @socketio.on('checkout_event')
 def handle_checkout(data):
     items = data['items']
-    print("接收到的购物明细：", items)
+    print("接收到的購物明细：", items)
     print('共給筆：',len(items))
     # 进行数据库存储或其他操作
     #insert_order(db, items:list)
     insert_order(db, items)
-
+    emit('order_saved', {'status': '訂單已成功存檔！'}, broadcast=True)
+    
 #carter add
 @app.route('/download', methods=['GET'])
 def download():
