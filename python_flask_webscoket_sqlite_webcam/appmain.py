@@ -38,6 +38,10 @@ def index():
 @app.route('/video')
 def goto_video():
     return render_template('html5_camera_1_1.html')
+
+@app.route('/video2')
+def goto_video2():
+    return render_template('html5_camera_2.html')
     
 @app.route('/item')
 def get_item():
@@ -167,9 +171,15 @@ def trigger_allitem_item(msg):
 def  trigger_new_item(msg):
      print('trigger new_item')
      newitems=[{ 'p_id': 2, 'p_name': '杏仁巧克力酥片', 'p_price': 50}]
-     emit('new_item_event', {'data': json.dumps(newitems) }, broadcast=False)
+     emit('new_item_event', {'data': json.dumps(newitems) }, broadcast=True)
 
-
+@socketio.on('new_item_from_pos')
+def form_pos(classid):
+    pos_item = [{'p_id': class_product_tbl[int(classid)]['p_id'],
+                 'p_name': class_product_tbl[int(classid)]['p_name'],
+                 'p_price': class_product_tbl[int(classid)]['p_price']}]
+    
+    emit('new_item_event', {'data': json.dumps(pos_item) }, broadcast=True)
 
 #carter add
 # 接收前端皆漲的資料F
