@@ -9,7 +9,36 @@
     <!-- 自定义 CSS 
     <link rel="stylesheet" type="text/css" href="styles.css">-->
     <style>
-      .video-container, .image-container {
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 80px;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            z-index: 1000;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+        .header button {
+            font-size: 20px;
+            padding: 15px 30px;
+        }
+        .content {
+            margin-top: 60px;
+        }
+        .video-container, .image-container {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,69 +53,60 @@
             justify-content: space-between;
             align-items: center;
         }
-        .top-buttons {
-        position: absolute;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        }
-        .top-buttons button {
-        font-size: 18px;
-        padding: 10px 20px;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
-   
-    <h1 style="text-align: center; font-size: 3em;color :white;background-color: black;" >秒結系統</h1>
-    <div class="top-buttons">
+    <div class="header">
         <button onclick="location.href='/'">回到首頁</button>
+        <h1>秒結系統</h1>
         <button onclick="location.href='/item'">訂單查詢</button>
     </div>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="video-container">
-                    <video id="video" class="w-100" height="480"></video>
-                  <!--<canvas id="canvas" hidden width="640" height="480"></canvas>-->  
+    <div class="content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="video-container">
+                        <video id="video" class="w-100" height="480"></video>
+                    <!--<canvas id="canvas" hidden width="640" height="480"></canvas>-->  
+                    </div>
+                    <canvas id="canvas" hidden width="640" height="480"></canvas>
                 </div>
-                <canvas id="canvas" hidden width="640" height="480"></canvas>
+                <div class="col-md-6">
+                    <img id="detect_image" class="img-fluid mt-2" height="480">
+                </div>
             </div>
-            <div class="col-md-6">
-                <img id="detect_image" class="img-fluid mt-2" height="480">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="button-row mb-3">
-                    <button id="snap" class="btn btn-primary mt-2">商品辨識</button>
-                    <button id="checkout" class="btn btn-success mb-3">結帳</button>
-                </div>  
-                <div class="button-row mb-3">
-                    <h2 class="mb-4">購買明細  </h2> <h1 style="color: red;"><span id="amount">0</span> 元</h1>
-                </div>
-                
-                <div id="container">
-                    <table id="item-table" class="table table-bordered table-hover">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>商品編號</th>
-                                <th>商品名稱</th>
-                                <th>數量</th>
-                                <th>價格</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Items will be dynamically added here -->
-                        </tbody>
-                    </table>
-                </div>
-                <div id="order-status" class="alert alert-success" role="alert" style="display: none;">
-                    訂單已成功存檔！
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="button-row mb-3">
+                        <button id="snap" class="btn btn-primary mt-2">商品辨識</button>
+                        <button id="checkout" style="scale: 1.5;" class="btn btn-success mb-3">結帳</button>
+                    </div>  
+                    <div class="button-row mb-3">
+                        <h2 class="mb-4">購買明細  </h2> <h1 style="color: red;"><span id="amount">0</span> 元</h1>
+                    </div>
+                    
+                    <div id="container">
+                        <table id="item-table" class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>商品編號</th>
+                                    <th>商品名稱</th>
+                                    <th>數量</th>
+                                    <th>價格</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Items will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="order-status" class="alert alert-success" role="alert" style="display: none;">
+                        訂單已成功存檔！
+                    </div>
                 </div>
             </div>
         </div>
