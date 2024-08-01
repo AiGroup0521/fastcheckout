@@ -23,8 +23,10 @@ class Pos:
     def detection(self):
         track_history = defaultdict(lambda: [])
         tracker = sv.ByteTrack()
-        box_annotator = sv.BoxAnnotator()
+        # box_annotator = sv.BoxAnnotator(thickness=8)
+        round_box_annotator = sv.RoundBoxAnnotator(thickness=8)
         label_annotator = sv.LabelAnnotator()
+        
         tid_status = {}
         
         while self.cap.isOpened():
@@ -42,7 +44,7 @@ class Pos:
                 else:
                     labels = []
                     
-                annotated_frame = box_annotator.annotate(scene=frame.copy(), detections=detections)
+                annotated_frame = round_box_annotator.annotate(scene=frame.copy(), detections=detections)
                 annotated_frame = label_annotator.annotate(scene=annotated_frame, detections=detections, labels=labels)
                 cv2.line(annotated_frame, self.start_point, self.end_point, (0, 255, 0), 2)
                 cv2.imshow('Webcam', annotated_frame)
@@ -71,5 +73,5 @@ class Pos:
         self.sio.emit('new_item_from_pos',int(classid))
 
 if __name__ == '__main__':
-    pos = Pos(0)
+    pos = Pos(1)
     pos.detection()
