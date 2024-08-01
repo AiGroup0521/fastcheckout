@@ -9,59 +9,72 @@
     <!-- 自定义 CSS -->
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
-      .video-container, .image-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        body {
+            margin: 0;
         }
-        .video-container > video, .image-container > img {
-            max-width: 100%;
-            height: auto;
+        .top-buttons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            z-index: 1000;
+        }
+        .top-buttons h1 {
+            margin: 0;
+            font-size: 3em;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .top-buttons button {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+        .container {
+            margin-top: 80px;
+        }
+        .button-row2 {
+            display: flex;
+            justify-content: flex-end; 
         }
         .button-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .button-row2 {
             width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 20px;
         }
-        .top-buttons {
-        position: absolute;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
+        .button-row h2 {
+            margin: 0;
         }
-        .top-buttons button {
-        font-size: 18px;
-        padding: 10px 20px;
+        .amount {
+            color: red;
+            font-size: 2em;
+            margin-left: 10px;
         }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
-   
-    <h1 style="text-align: center; font-size: 3em;color :white;background-color: black;" >秒結系統</h1>
     <div class="top-buttons">
         <button onclick="location.href='/'">回到首頁</button>
+        <h1>秒結系統</h1>
         <button onclick="location.href='/item'">訂單查詢</button>
     </div>
+    <br/>
+    <br/>
     <div class="container mt-5">
-  
         <div class="row">
             <div class="col-md-12">
                 <div class="button-row2 mb-3">
-                    
-                <!--<button id="snap" class="btn btn-primary mt-2">商品辨識</button>-->   
-            
-                    <button id="checkout" class="btn btn-success mb-3">結帳</button>
-                </div>  
+                    <button id="checkout" style="scale: 1.5;" class="btn btn-success mb-3">結帳</button>
+                </div>
                 <div class="button-row mb-3">
                     <h2 class="mb-4">購買明細  </h2> <h1 style="color: red;"><span id="amount">0</span> 元</h1>
                 </div>
