@@ -3,3 +3,5 @@ python
 flask==3.0.3
 flask-socketio==4.3.2
 gevent
+supervision==0.22.0
+python-socketio==5.11.3
