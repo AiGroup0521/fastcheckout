@@ -258,7 +258,7 @@ def handle_search(data):
             ORDER_D D ON M.o_id = D.o_id
         WHERE
             M.o_date BETWEEN ? AND ?
-        GROUP BY M.o_id, M.o_date, M.o_total
+        GROUP BY M.o_id, M.o_date, M.o_total order by M.o_date desc,M.o_id desc
     '''
     try:
         df = pd.read_sql_query(query, conn, params=(start_date, end_date))
