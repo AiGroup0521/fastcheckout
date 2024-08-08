@@ -160,6 +160,7 @@
 
         // Checkout
         $("#checkout").on('click', function() {
+
             if (confirm("確認是否結帳!")) {
                 var items = [];
                 $('#item-table tbody tr').each(function() {
@@ -183,7 +184,9 @@
                 });
                 console.log(items);  // 控制台打印，以便調試
                 socket.emit('checkout_event', {items: items});
-                setTimeout("location.href='http://localhost:3000/'",1000);
+                //setTimeout("location.href='http://localhost:3000/'",1000);
+                setTimeout("location.href='/'",1000);
+            
             } 
         });
 
@@ -194,7 +197,7 @@
                 var row = `<tr>
                     <td><a href='#'>${item['p_id']}</a></td>
                     <td>${item['p_name']}</td>
-                    <td><input type='number' class='item-quantity form-control' value='1' min='1' style='width: 80px;'></td>
+                    <td><input type='text' class='item-quantity form-control' value='1' min='1' style='width: 80px;'></td>
                     <td>${item['p_price']}</td>
                     <td>
                         <div class="btn-group" role="group">
